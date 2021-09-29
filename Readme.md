@@ -22,3 +22,27 @@ Connected Displays - This allows you to select which displays are connected to t
 MCP23017 Pin Assignment Page<br>
 This page allows you to change the pin names to a more friendly name that will be passed to Home Assistant as a sub-topic.  It also allows you to select from 7 different device classes.<br>
 { "Binary", "Door", "Window", "Switch", "Relay", "Light", "Lock" }
+
+  
+  // 9/21/2021 - started documenting changes
+//             LH22 created to add SPIFF support  
+// 9/26/2021 - The start of better Json read and write
+// 9/27/2021 - Created Maine HTML page, Contact Page, work started on GPIO naming page and IFO Page
+//             pin reading working....need to compare and write to buffer next
+// 9/28/2021 - Working file check and create, file save, file read        
+//             Basic 16 port pin assignment web page figured out       
+// 9/29/2021 - Added better labels and pretty up page including class selection drop down
+
+/* TO DO LIST
+FIX READING JSON FROM A FILE 
+FIX WRITE FROM THE ASSIGNMENTS WEB PAGE
+NEED TO COMPARE READ PIN TO BUFFER 
+FAILED PULL HIGH INITIALIZATION
+ADD SPI 240X240 COLOR DISPLAY SUPPORT
+MQTT CONNECT
+MQTT PUBLISH
+MQTT RECEIVE
+MQTT AUTO DISCOVERY
+TEMPERATURE SUPPORT
+RGB LED status light 
+** HOME ASSISTANT API OTHER THAN MQTT AUTO DOSCOVERY **
