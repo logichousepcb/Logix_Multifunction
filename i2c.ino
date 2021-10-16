@@ -49,45 +49,6 @@ void scanI2CBus()
   else
     Serial.println("done\n");
 
-  delay(5000);           // wait 5 seconds for next scan
+ // delay(5000);           // wait 5 seconds for next scan
 
 }
-/*
-void scanI2CBus()
-{
-  Serial.println(F("Scanning for devices on the I2C bus..."));
-
-  // Scan for MCP's
-  for (uint8_t mcp = 0; mcp < MCP_COUNT; mcp++)
-  {
-    Serial.print(F(" - 0x"));
-    Serial.print(MCP_ADDRESS[mcp], HEX);
-    Serial.print(F("..."));
-
-    // Check if there is anything responding on this address
-    Wire.beginTransmission(MCP_ADDRESS[mcp]);
-    if (Wire.endTransmission() == 0)
-    {
-      bitWrite(g_mcps_found, mcp, 1);
-
-      // If an MCP23017 was found then initialise and configure the outputs
-      mcp23017[mcp].begin_I2C(MCP_ADDRESS[mcp]);
-      for (uint8_t pin = 0; pin < MCP_PIN_COUNT; pin++)
-      {
-        mcp23017[mcp].pinMode(pin, OUTPUT);
-    //    mcp23017[mcp].digitalWrite(pin, RELAY_OFF);
-      }
-
-      // Listen for output events
-//      oxrsOutput[mcp].onEvent(outputEvent);
-      
-      Serial.println(F("MCP23017"));
-    }
-    else
-    {
-      // No MCP found at this address
-      Serial.println(F("empty"));
-    }
-  }
-}
-*/

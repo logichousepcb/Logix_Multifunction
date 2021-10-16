@@ -5,7 +5,7 @@ void setup_display() {
 //  }
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 //  display.begin(SH1106_SWITCHCAPVCC, 0x78);
-  delay(2000);
+//  delay(1000);
   display.clearDisplay();
   display.display(); 
   showBitmap();
@@ -90,6 +90,11 @@ static const unsigned char PROGMEM bitmapEthOn [] =
 0x9F, 0xF9, 0x9F, 0xF9, 0x9B, 0xD9, 0x9B, 0xD9, 0x80, 0x01, 0x80, 0x01, 0xC0, 0x03, 0x7F, 0xFE
 };
 
+static const unsigned char PROGMEM bitmapWifiOn [] =
+{0x00, 0x00, 0x00, 0x00, 0x0F, 0xF0, 0x3F, 0xFC, 0x70, 0x0E, 0x67, 0xE6, 0x1F, 0xF8, 0x18, 0x18,
+0x13, 0xC8, 0x07, 0xE0, 0x04, 0x20, 0x01, 0x80, 0x01, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+
 static const unsigned char PROGMEM bitmapMQTTOn [] = {
 0x40, 0x0A, 0xFF, 0x07, 0x07, 0xC2, 0x01, 0xE1, 0x40, 0x70, 0xF8, 0x38, 0x7E, 0x1C, 0x0F, 0x0C,
 0x03, 0x8E, 0xC1, 0xC6, 0xF0, 0xE7, 0xF8, 0xE2, 0xFC, 0x62, 0xFE, 0x72, 0xFE, 0x73, 0x7E, 0x30
@@ -109,11 +114,16 @@ void showBitmap(void) {
   display.clearDisplay();
   display.drawBitmap(0, 0, bitmap, bitmap_height, bitmap_width, WHITE);
   display.display();
-  delay(5000);
+  delay(1500);
 }
 
 void showEthconnected() {
   display.drawBitmap(0, 0, bitmapEthOn, 16, 16, WHITE);
+ // display.display();
+}
+
+void showWificonnected() {
+  display.drawBitmap(0, 0, bitmapWifiOn, 16, 16, WHITE);
  // display.display();
 }
 
@@ -136,20 +146,27 @@ void display_status () {
   display.clearDisplay();
   display.setTextSize(2);
   display.setTextColor(WHITE);
-  display.setCursor(20, 0);
+  display.setCursor(12, 0);
   display.print(" LH ");
   display.println(CURR_VERS);
-  display.setCursor(0,16);
+  
   if (eth_connected == true) {showEthconnected();}; 
-  if (eth_connected == false){showEthoff();};
+  if (wifi_connected == true){showWificonnected();};
+  if (eth_connected == false && wifi_connected == false){showEthoff();};
+  
+   
   if (MQTT_connected == true) {showMQTTconnected();}; 
   if (MQTT_connected == false) { showMQTToff();};
-  display.setTextSize(2);
+
+  display.setCursor(0,20);
+  display.setTextSize(1);
   display.print (DLINE1);
+  display.setTextSize(2);
   display.setCursor(0,32);
   display.print (DLINE2);
    display.setCursor(0,48);
   display.print (DLINE3);
     
   display.display(); 
+ // display.clearDisplay();
 }
