@@ -1,5 +1,17 @@
 #Multi Function Home Control Board
 
+** Lots of changes today 10/16/2021.  I have turned back on Wifi support.  When the board has a fresh install it will generate an access point.  Follow these steps <br>
+1- connect to it on your phone <br>
+2- navigate to 192.168.4.1 <br>
+3- select the Main Configuration page <br>
+4- input your SSID and password (careful it is case sensitive) <br>
+5- enter your SDA and SCL pins if they differ from the default <br>
+5- click save at bottom <br>
+6- click restart at bottom <br>
+7- the ip should display on the LCD screen
+8- you can now navigate to that ip from a web browser anywhere on your network (pages sometime load slow due to the speed of the ESP)
+
+
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/mainpage.PNG)
 
 
