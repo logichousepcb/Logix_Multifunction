@@ -68,16 +68,12 @@ intRelay - This is to activate the internal relay on my board connected to GPIO 
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/pinassigncompare.PNG)<br>
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/pinassignpage.PNG)<br>
 
-/* TO DO LIST
-FIX READING JSON FROM A FILE 
-FIX WRITE FROM THE ASSIGNMENTS WEB PAGE
-NEED TO COMPARE READ PIN TO BUFFER 
-FAILED PULL HIGH INITIALIZATION
-ADD SPI 240X240 COLOR DISPLAY SUPPORT
-MQTT CONNECT
-MQTT PUBLISH
-MQTT RECEIVE
-MQTT AUTO DISCOVERY
-TEMPERATURE SUPPORT
-RGB LED status light 
-** HOME ASSISTANT API OTHER THAN MQTT AUTO DOSCOVERY **
+If you have an SPI TFT or an SSD1306 OLED connected you get the benefit of an informative display.  
+On the screen: <br>
+Top LEFT it will display connection status (Ethernet, Wifi, or NONE) <br> 
+Top RIGHT it will display MQTT status with a line through it if not connected. <br>
+Second line display your IP address either wifi or ethernet. <br>
+Third line displays the last activity or sensor activated (the SPI version has nice icons) <br>
+Forth line displays the other information (amp draw if the INA260 is connected) <br>
+** There are other actions displayed on the screen such as file writting or deleting.  Config information is stored in the SPIFF file system. <br>
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/TFTOLED.PNG)<br>
