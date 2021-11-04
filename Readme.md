@@ -15,7 +15,7 @@ So I started with what you see bellow.  A mess of wires coming out of the wall i
 
 I started by wiring each binary sensor (reed switch) to a twisted pair on an RJ45 plug.  Since each plug had 4 pairs, it took 6 plugs to adapt the 24 wires to RJ45.  I then ran 6 cables to my rack mounted server station in the basement where I connected to the board I created.  I designed it to fit in my rack.
  
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/ADT_Mess.PNG)
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/LH2_0_Rack_Mount.PNG)
 
 On to the software!  Included is a .bin file you can burn to you ESP32 or you can compile yourself.  I used the Arduino IDE and tried to reference the proper libraries I used in the header.
 
@@ -27,12 +27,20 @@ Wifi is supported if you don't want to run ethernet to your closet.  I also have
 5- enter your i2c SDA and SCL pins if they differ from the default <br>
 5- click save at bottom <br>
 6- click restart at bottom <br>
-7- if you have an i2c 0.96 oled connected the ip should display on the LCD screen otherwise you may have to check with you router or look at the serail debuger.
-8- you can now navigate to that ip from a web browser anywhere on your network (pages sometime load slow due to the speed of the ESP)  I do hope to be able to speed up the code in the future.
+7- if you have an i2c 0.96 oled connected the ip should display on the LCD screen otherwise you may have to check with you router or look at the serail debuger. <br>
+8- you can now navigate to that ip from a web browser anywhere on your network (pages sometime load slow due to the speed of the ESP)  I do hope to be able to speed up the code in the future. <br>
 
 
+You will be greated with this main page when you navigate to the devices ip.  (be patient the first few times) <br>
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/mainpage.PNG)
 
+
+Here is the device configuration page where.  
+**You can enter/change your wifi information here. <br>
+**Change the i2c GPIO ports used for you device but it defaults to mine. <br>
+**Enter your MQTT server information. Dont forget your main topic for the devices to publich in.  And yes, if you want to auto discover in home assistant it can be selected. <br>
+**If you want a richer display, I built in support for a 240x240 SPI TFT display including rottion in case you mount it sideways or upside down.
+*** YOU DO NEED TO SAVE AND RESTART FOR ALL CHANGES TO TAKE EFFECT
 
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/configpage.PNG)<br>
 Configuration Page<br>
