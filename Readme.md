@@ -1,6 +1,19 @@
 #Multi Function Home Control Board
 
-** Lots of changes today 10/16/2021.  I have turned back on Wifi support.  When the board has a fresh install it will generate an access point.  Follow these steps <br>
+The main purpose of the software is to set up, modify and deploy a mcp23017 based multifunction board.  My board started out as a 64 port adapter to adapt the security system wiring built into my house to home assistant.  This wiring mostly consisted of reed switches but I found alarm wiring going to all corners of my house including my attic and basement.  I was eager to find uses for it all.  ESP Home is a great piece of software to connect to home assistant but I found it did not suite my needs and did not seem to handle that many i/o ports.  I set out to design my own.  I started with a simple piece of firmware I wrote that used a config file and adapted the sensors to Home Assitant quite well and it worked for over a year without issue. <br>
+
+Well, as all projects go you want more.  I found others who had a similar board and in adapting my code to fit their needs, I too found some options I wanted.
+1 - Ethernet support (a must for me)
+2 - A Web user interface to make changes and add on easily
+3 - A simple way to identify the reed switches built into my walls.  
+
+This piece of firmware is just that.  I can't take credit for every piece of this code.  I explore the web when I come across a problem I can't solve on my own and adapt ideas or code from other open source projects to reach my goals.  
+
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/ADT_mess.PNG)
+
+
+
+I have turned back on Wifi support.  When the board has a fresh install it will generate an access point.  Follow these steps <br>
 1- connect to it on your phone <br>
 2- navigate to 192.168.4.1 <br>
 3- select the Main Configuration page <br>
