@@ -48,7 +48,7 @@ Connected Devices Menu <br>
 
 The firmware will identify certain i2c devices.  If you have one you want to see added tot he list, let me know.  Right now it identifies an 0.96 oled, MCP23017 chips, an INA260 voltage monitor, and a BME280 temperature/humidity sensor.  (I plan to add support for the Serial Wombat and PCF8574 when I get around to playing with them more)  
 
-
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/Connected_Devices.PNG)<br>
 GPIO Assignment Page<br>
 
 The firmware will identify the the expander chips and assign unique names to them based on portions of the mac address, the chip address and the pin assignment to prevent duplicates.  From this page you can change the name to a more friendly name up to 8 charasters.  Use an underscore in place of spaces.  You can also change the device class.  <br>
