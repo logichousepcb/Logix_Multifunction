@@ -11,11 +11,11 @@ This piece of firmware is just that.  It runs on an ESP32 with WIfi but was buil
 
 So I started with what you see bellow.  A mess of wires coming out of the wall in my front closet.  The wonderful MCP23017 is an i2c port expander that will give you 16 additional binary sensors or output control.  With this each chip can handle basically 16 zones in my house.  I have about 24.  <br>
 
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/ADT_Mess.PNG)
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/ADT_Mess.PNG)<br>
 
 I started by wiring each binary sensor (reed switch) to a twisted pair on an RJ45 plug.  Since each plug had 4 pairs, it took 6 plugs to adapt the 24 wires to RJ45.  I then ran 6 cables to my rack mounted server station in the basement where I connected to the board I created.  I designed it to fit in my rack.
  
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/LH2_0_Rack_Mount.PNG)
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/LH2_0_Rack_Mount.PNG)<br>
 
 On to the software!  Included is a .bin file you can burn to you ESP32 or you can compile yourself.  I used the Arduino IDE and tried to reference the proper libraries I used in the header.
 
@@ -32,7 +32,7 @@ Wifi is supported if you don't want to run ethernet to your closet.  I also have
 
 
 You will be greated with this main page when you navigate to the devices ip.  (be patient the first few times) <br>
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/mainpage.PNG)
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/mainpage.PNG)<br>
 
 
 Here is the device configuration page where.  
@@ -43,18 +43,27 @@ Here is the device configuration page where.
 *** YOU DO NEED TO SAVE AND RESTART FOR ALL CHANGES TO TAKE EFFECT
 
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/configpage.PNG)<br>
-Configuration Page<br>
 
-This page allows general configuration of device hardware.  Make your own or try one of mine.<br>
-I2C GPIO Connection SDA/SCL - This is where your MCP23017 and other I2C devices are connected.<br>
-MQTT Server - Enter your MQTT Server IP Address<r>
-MQTT Username - Enter your MQTT userame<r>
-MQTT Password - Enter your MQTT password<r>
-MQTT Topic - Enter your MQTT topic.  MQTT will publish to \Topic\subtopic  (the subtopic is defined in pin assignemnt naming page<r>
-MQTT Port - Enter your MQTT Port (default:1883)<r>
-Active Expanders - Select all the active expanders on your device (the info screen will eventaully show you which are detected)
-Connected Displays - This allows you to select which displays are connected to the device.  As I add support I will add the display here.
-  
+Connected Devices Menu <br>
+
+The firmware will identify certain i2c devices.  If you have one you want to see added tot he list, let me know.  Right now it identifies an 0.96 oled, MCP23017 chips, an INA260 voltage monitor, and a BME280 temperature/humidity sensor.  (I plan to add support for the Serial Wombat and PCF8574 when I get around to playing with them more)  
+
+
+GPIO Assignment Page<br>
+
+The firmware will identify the the expander chips and assign unique names to them based on portions of the mac address, the chip address and the pin assignment to prevent duplicates.  From this page you can change the name to a more friendly name up to 8 charasters.  Use an underscore in place of spaces.  You can also change the device class.  <br>
+** DON'T FORGET TO SAVE WHEN COMPLETE. <br>
+
+Here are the device classes and their function. <br>
+
+Binary
+Door
+Window
+Switch
+Relay
+iBinary
+Relay3
+intRelay     
 
 
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/pinassignpage.PNG)<br>
