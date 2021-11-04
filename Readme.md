@@ -9,7 +9,7 @@ Well, as all projects go you want more.  I found others who had a similar board 
 
 This piece of firmware is just that.  I can't take credit for every piece of this code.  I explore the web when I come across a problem I can't solve on my own and adapt ideas or code from other open source projects to reach my goals.  
 
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/ADT_mess.PNG)
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/ADT_Mess.PNG)
 
 
 
