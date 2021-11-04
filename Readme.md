@@ -56,14 +56,18 @@ The firmware will identify the the expander chips and assign unique names to the
 
 Here are the device classes and their function. <br>
 
-Binary - This is a simple binary sensor and will identify as such in Home Assistant 
-Door - this is a simple door binary sensor (HA uses the door icon automaticall)
-Window - this is a simple window binary sensor (HA uses the window icon automaticall)
-Switch - This is a switch (output on the mcp23017 pulls high) (HA uses the switch icon automaticall)
-Relay -This is a simple binary sensor and will identify as such in Home Assistant 
-iBinary - This is a simple inverted binary sensor and will identify as such in Home Assistant 
-Relay3 - This is the same as relay or switch but only activate for 3 seconds then shuts off (this is usefull for button pushes such as a garage door)
-intRelay - This is to activate the internal relay on my board connected to GPIO 12 on the ESP32.     
+Binary - This is a simple binary sensor and will identify as such in Home Assistant <br>
+Door - this is a simple door binary sensor (HA uses the door icon automaticall) <br>
+Window - this is a simple window binary sensor (HA uses the window icon automaticall) <br>
+Switch - This is a switch (output on the mcp23017 pulls high) (HA uses the switch icon automatically) <br>
+Relay -This is a simple binary sensor and will identify as such in Home Assistant <br>
+iBinary - This is a simple inverted binary sensor and will identify as such in Home Assistant <br> 
+Relay3 - This is the same as relay or switch but only activate for 3 seconds then shuts off (this is usefull for button pushes such as a garage door) <br>
+intRelay - This is to activate the internal relay on my board connected to GPIO 12 on the ESP32. <br>    
+
+BUT WAIT!! YOU DON'T KNOW WHICH PORT IS CONNECTED TO WHICH REED SWITCH IN THAT WIRING BUNDLE IN YOUR WALLS <br>
+
+You can open and close the doors, windows or test wires and watch the connected display to see what it is temporarily called or you can turn on auto dicovery.  Add the sesnor that looks like and eye named that same as your main topin (device) and it will display the last item pushed.  Walk around your house with your phone and HA mobile and watch the displayed name on your dashboard.  Then head to your browser, raname, save and reload auto discovery. <br>
 
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/pinassigncompare.PNG)<br>
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/pinassignpage.PNG)<br>
