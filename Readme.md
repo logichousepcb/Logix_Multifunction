@@ -3,26 +3,32 @@
 The main purpose of the software is to set up, modify and deploy a mcp23017 based multifunction board.  My board started out as a 64 port adapter to adapt the security system wiring built into my house to home assistant.  This wiring mostly consisted of reed switches but I found alarm wiring going to all corners of my house including my attic and basement.  I was eager to find uses for it all.  ESP Home is a great piece of software to connect to home assistant but I found it did not suite my needs and did not seem to handle that many i/o ports.  I set out to design my own.  I started with a simple piece of firmware I wrote that used a config file and adapted the sensors to Home Assitant quite well and it worked for over a year without issue. <br>
 
 Well, as all projects go you want more.  I found others who had a similar board and in adapting my code to fit their needs, I too found some options I wanted.
-1 - Ethernet support (a must for me)
+1 - Ethernet support (a must for me) 
 2 - A Web user interface to make changes and add on easily
 3 - A simple way to identify the reed switches built into my walls.  
 
-This piece of firmware is just that.  I can't take credit for every piece of this code.  I explore the web when I come across a problem I can't solve on my own and adapt ideas or code from other open source projects to reach my goals.  
+This piece of firmware is just that.  It runs on an ESP32 with WIfi but was built with the WT32-ETH01 ethernet board in mind.  I can't take credit for every piece of this code.  I explore the web when I come across a problem I can't solve on my own and adapt ideas or code from other open source projects to reach my goals.  
+
+So I started with what you see bellow.  A mess of wires coming out of the wall in my front closet.  The wonderful MCP23017 is an i2c port expander that will give you 16 additional binary sensors or output control.  With this each chip can handle basically 16 zones in my house.  I have about 24.  <br>
 
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/ADT_Mess.PNG)
 
+I started by wiring each binary sensor (reed switch) to a twisted pair on an RJ45 plug.  Since each plug had 4 pairs, it took 6 plugs to adapt the 24 wires to RJ45.  I then ran 6 cables to my rack mounted server station in the basement where I connected to the board I created.  I designed it to fit in my rack.
+ 
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/ADT_Mess.PNG)
 
+On to the software!  Included is a .bin file you can burn to you ESP32 or you can compile yourself.  I used the Arduino IDE and tried to reference the proper libraries I used in the header.
 
-I have turned back on Wifi support.  When the board has a fresh install it will generate an access point.  Follow these steps <br>
-1- connect to it on your phone <br>
+Wifi is supported if you don't want to run ethernet to your closet.  I also have a board that uses terminal blocks to remove the need for any RJ45 wiring. When the board has a fresh install it will generate an access point.  Follow these steps <br>
+1- connect to it on your phone - it will generate an odd access point named something like A8032A625CBC<br>
 2- navigate to 192.168.4.1 <br>
 3- select the Main Configuration page <br>
 4- input your SSID and password (careful it is case sensitive) <br>
-5- enter your SDA and SCL pins if they differ from the default <br>
+5- enter your i2c SDA and SCL pins if they differ from the default <br>
 5- click save at bottom <br>
 6- click restart at bottom <br>
-7- the ip should display on the LCD screen
-8- you can now navigate to that ip from a web browser anywhere on your network (pages sometime load slow due to the speed of the ESP)
+7- if you have an i2c 0.96 oled connected the ip should display on the LCD screen otherwise you may have to check with you router or look at the serail debuger.
+8- you can now navigate to that ip from a web browser anywhere on your network (pages sometime load slow due to the speed of the ESP)  I do hope to be able to speed up the code in the future.
 
 
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/mainpage.PNG)
