@@ -55,97 +55,102 @@ void listFilesInDir(File dir, int numTabs) {
   }
 }
 
-void mcpfileRenew() {
-  SPIFFS.remove("/mcp23017.cfg");
+void mcpfileClear() {
+  int i;
+  Serial.print("Deleting Files");
+  Serial.println("/"+MCP_CHIPNAME[i]+".json");
+  DLINE1 = "  FILES";
+  DLINE2 = " DELETED";
+  DLINE3 = "";
+  DLINE7 = " FILES DELETING! ";
+  ICONLINE = '8';
+  for (i = 0; i<8; i++) {
+      SPIFFS.remove("/"+MCP_CHIPNAME[i]+".json");
+    }
+}
+
+
+void writeDataToFile(int chipnum) {
+  File outfile = SPIFFS.open("/"+MCP_CHIPNAME[chipnum]+".json","w");
+  serializeJson(mcpdoc[chipnum], outfile);
+ // Serial.println(outfile);
+  DLINE1 = "FILE WRITE";
+  DLINE2 = "/"+MCP_CHIPNAME[chipnum]+"json";
+  DLINE3 = SPIFFS.usedBytes();
+  DLINE7 = "WRITTING FILES";
+  ICONLINE = '8';
+  display_status ();
+  delay (100);
+  outfile.close();
+}
+
+void writeJsonToSerial(int chipnum) {
+  serializeJson(mcpdoc[chipnum], Serial);
+  Serial.println(); 
 }
 
 void mcpfileCheck() {
-  File file = SPIFFS.open("/mcp23017.cfg", "w");
-  if (!SPIFFS.exists("/mcp23017.cfg")) {     // if there is no mcp23017.cfg file make a fresh one
-    
+   int i;
+   for (i = 0; i < 8; i++) {
+     if (!SPIFFS.exists("/"+MCP_CHIPNAME[i]+".json")) {     // if there is no .json make a fresh one
+       Serial.print("Need to create ");
+       writeDataToFile(i);
+       Serial.println("/"+MCP_CHIPNAME[i]+".json");
+ 
+     }
+//     if (!file) {
+//     Serial.println("Error opening file for writing");
+//     DLINE1 = "FILE OPEN";
+//     DLINE2 = "  ERROR";
+//     return;
+//     }
+//     file.close();
   }
+}
+
+void printFile(int chipnum) {
+  // Open file for reading
+  File file = SPIFFS.open("/"+MCP_CHIPNAME[chipnum]+".json");
+//  File file = SD.open(filename);
   if (!file) {
-    Serial.println("Error opening file for writing");
-    DLINE1 = "FILEOPENERROR";
+    Serial.println(F("Failed to read file"));
     return;
   }
- // mcprenewJson(0);  // JUST FOR TESTING __ REMOVE THIS
-  
-  char filebuffer[450];
-  serializeJson(mcpdoc[0], filebuffer);
-  
-  int bytesWritten = file.print(filebuffer);
-  if (bytesWritten > 0) {
-    Serial.println("File was written");
-    Serial.println(bytesWritten);
-    DLINE1 = "FILEWRITTEN";
  
-  } else {
-    Serial.println("File write failed");
-     DLINE1 = "FILEWRITEERROR";
+  // Extract each characters by one by one
+  Serial.println("/"+MCP_CHIPNAME[chipnum]+".json");
+  while (file.available()) {
+    Serial.print((char)file.read());
   }
+  Serial.println();
  
+  // Close the file
   file.close();
 }
-   
+
   
-void readDataFromFile(const char* filename) {
-  File file = SPIFFS.open(filename);
+void readDataFromFile(int chipnum) {
+  
+  File file = SPIFFS.open("/"+MCP_CHIPNAME[chipnum]+".json");
+//  Serial.println ("Reading from /"+MCP_CHIPNAME[chipnum]+".json");
   if(file) {
-    StaticJsonDocument<600> doc;
-    DeserializationError error = deserializeJson(doc, file);
-    String chip = doc["chip"].as<String>();
-    String io = doc["IO"].as<String>();
-    String state = doc["state"].as<String>();
-    String ao = doc["A0"].as<String>();
-    Serial.println (chip);
-    Serial.println(io);
-    Serial.println (state);
-    Serial.println(ao);
+    DeserializationError error = deserializeJson(mcpdoc[chipnum], file);
   }
+  
+//  if (file) { 
+//    Serial.println ("READING FILE CONTENTS");
+//    while (file.available()) { //execute while file is available
+//    char letter = file.read(); //read next character from file
+//    Serial.print(letter); //display character
+//    }  
+//  }
+//  Serial.println (" -END");
   file.close();
 }
 
-void writeDataToFile(const char* filename) {
-  File outfile = SPIFFS.open(filename,"w");
-  StaticJsonDocument<600> doc;
-  doc["data"] = "michael";
-  if(serializeJson(doc, outfile)==0) {
-    Serial.println("Failed to write to SPIFFS file");
-  } else {
-    Serial.println("Success!");
-  }
-  outfile.close();
+void readDataFromAll () {
+  for (int i = 0; i < 8; i++) {
+    readDataFromFile(i);
+ //   Serial.println ("Reading from /"+MCP_CHIPNAME[i]+".json");
+  } 
 }
-
-void createDataFile(int m) {
-  File outfile = SPIFFS.open(MCP_FILENAME[m],"w");
-  StaticJsonDocument<600> doc;
-  doc["chip"] = MCP_FILENAME[m];
-  doc["IO"] = "0000000000000000";   // 0 for output, 1 for input
-  doc["state"] = "0000000000000000";  // 0 for off, 1 for on
-  doc["A0"] ="A0********";            // store friendly name of IO for HA
-  doc["A1"] ="A1********";
-  doc["A2"] ="A2********";
-  doc["A3"] ="A3********";
-  doc["A4"] ="A4********";
-  doc["A5"] ="A5********";
-  doc["A6"] ="A6********";
-  doc["A7"] ="A7********";
-  doc["B0"] ="B0********";
-  doc["B1"] ="B1********";
-  doc["B2"] ="B2********";
-  doc["B3"] ="B3********";
-  doc["B4"] ="B4********";
-  doc["B5"] ="B5********";
-  doc["B6"] ="B6********";
-  doc["B7"] ="B7********";
-
-  
-  if(serializeJson(doc, outfile)==0) {
-    Serial.println("Failed to write to SPIFFS file");
-  } else {
-    Serial.println("Success!");
-  }
-  outfile.close();
-} 
