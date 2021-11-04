@@ -56,30 +56,17 @@ The firmware will identify the the expander chips and assign unique names to the
 
 Here are the device classes and their function. <br>
 
-Binary
-Door
-Window
-Switch
-Relay
-iBinary
-Relay3
-intRelay     
+Binary - This is a simple binary sensor and will identify as such in Home Assistant 
+Door - this is a simple door binary sensor (HA uses the door icon automaticall)
+Window - this is a simple window binary sensor (HA uses the window icon automaticall)
+Switch - This is a switch (output on the mcp23017 pulls high) (HA uses the switch icon automaticall)
+Relay -This is a simple binary sensor and will identify as such in Home Assistant 
+iBinary - This is a simple inverted binary sensor and will identify as such in Home Assistant 
+Relay3 - This is the same as relay or switch but only activate for 3 seconds then shuts off (this is usefull for button pushes such as a garage door)
+intRelay - This is to activate the internal relay on my board connected to GPIO 12 on the ESP32.     
 
-
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/pinassigncompare.PNG)<br>
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/pinassignpage.PNG)<br>
-MCP23017 Pin Assignment Page<br>
-This page allows you to change the pin names to a more friendly name that will be passed to Home Assistant as a sub-topic.  It also allows you to select from 7 different device classes.<br>
-{ "Binary", "Door", "Window", "Switch", "Relay", "Light", "Lock" }
-
-  
-  // 9/21/2021 - started documenting changes
-//             LH22 created to add SPIFF support  
-// 9/26/2021 - The start of better Json read and write
-// 9/27/2021 - Created Maine HTML page, Contact Page, work started on GPIO naming page and IFO Page
-//             pin reading working....need to compare and write to buffer next
-// 9/28/2021 - Working file check and create, file save, file read        
-//             Basic 16 port pin assignment web page figured out       
-// 9/29/2021 - Added better labels and pretty up page including class selection drop down
 
 /* TO DO LIST
 FIX READING JSON FROM A FILE 
