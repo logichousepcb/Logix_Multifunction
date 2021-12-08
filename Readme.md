@@ -16,6 +16,11 @@ So I started with what you see bellow.  A mess of wires coming out of the wall i
 I started by wiring each binary sensor (reed switch) to a twisted pair on an RJ45 plug.  Since each plug had 4 pairs, it took 6 plugs to adapt the 24 wires to RJ45.  I then ran 6 cables to my rack mounted server station in the basement where I connected to the board I created.  I designed it to fit in my rack.
  
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/LH2_0_Rack_Mount.PNG)<br>
+I also made a wall mount compact version which is available on Tindie.
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/LH25_Tindie.jpg)<br>
+https://www.tindie.com/products/logixpcb/16-port-ha-wifiethernet-sensor-adapter/
+<br>
+
 
 On to the software!  Included is a .bin file you can burn to you ESP32 or you can compile yourself.  I used the Arduino IDE and tried to reference the proper libraries I used in the header.
 
