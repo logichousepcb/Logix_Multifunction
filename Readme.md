@@ -11,7 +11,7 @@ This piece of firmware is just that.  It runs on an ESP32 with WIfi but was buil
 
 So I started with what you see bellow.  A mess of wires coming out of the wall in my front closet.  The wonderful MCP23017 is an i2c port expander that will give you 16 additional binary sensors or output control.  With this each chip can handle basically 16 zones in my house.  I have about 24.  <br>
 
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/ADT_Mess.PNG)<br>
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/BEFORE.PNG)<br>
 
 I started by wiring each binary sensor (reed switch) to a twisted pair on an RJ45 plug.  Since each plug had 4 pairs, it took 6 plugs to adapt the 24 wires to RJ45.  I then ran 6 cables to my rack mounted server station in the basement where I connected to the board I created.  I designed it to fit in my rack.
  
@@ -83,6 +83,13 @@ Top LEFT it will display connection status (Ethernet, Wifi, or NONE) <br>
 Top RIGHT it will display MQTT status with a line through it if not connected. <br>
 Second line display your IP address either wifi or ethernet. <br>
 Third line displays the last activity or sensor activated (the SPI version has nice icons) <br>
-Forth line displays the other information (amp draw if the INA260 is connected) <br>
+Forth line displays the other information (amp draw if the INA260 is connected) and uptime of device to the right<br>
+Here is a list of on screen codes: <br>
+FIRMWARE = Firmware is updating <br>
+CONN->MQTT = Device is trying to connect to MQTT, if this doesn't go away check you MQTT settings in the web ui <br>
+MQTT->AD = Device is sending AUto Discovery MQTT messages to Home Assistant <br>
+AP ACTIVE = The access point is active, you need to connect to the AP using your phone and navigate to 192.168.4.1 to input you WIFI credentials (or connect via Ethernet) <br>
+READY = Waiting for I/O input (it will display the last I/O used for a period and refresh to ready after some time)
+
 ** There are other actions displayed on the screen such as file writting or deleting.  Config information is stored in the SPIFF file system. <br>
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/TFTOLED.PNG)<br>
