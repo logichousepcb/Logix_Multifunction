@@ -20,8 +20,8 @@ String html_class_select3  = ">Window</option> <option value=\"Switch\"";
 String html_class_select4  = ">Switch</option> <option value=\"Relay\"";
 String html_class_select5  = ">Relay </option> <option value=\"iBinary\"";
 String html_class_select6  = ">iBinary</option> <option value=\"Relay3\"";
-String html_class_select7  = ">Relay3</option> <option value=\"intRelay\"";
-String html_class_selectc  = ">intRelay</option> </select><br>";
+String html_class_select7  = ">Relay3</option> <option value=\"INACTIVE\"";
+String html_class_selectc  = ">INACTIVE</option> </select><br>";
 String html_class_selected  =" selected";
 
 const char* serverIndex = "<form method='POST' action='/update' enctype='multipart/form-data'><input type='file' name='update'><input type='submit' value='Update'></form>";
@@ -143,7 +143,7 @@ void handleSave() {
        if (argfn == "Relay") {pinassign = '4';}; 
        if (argfn == "iBinary") {pinassign = '5';}; 
        if (argfn == "Relay3") {pinassign = '6';}; 
-       if (argfn == "intRelay") {pinassign = '7';};
+       if (argfn == "INACTIVE") {pinassign = '7';};
        if (argfn == "Binary") {pinassign = '0';}; 
        ioholder[chipholder].setCharAt(pinholder, pinassign);      // place the current web page char value in the string on the proper place    
       }

@@ -18,13 +18,14 @@ void mcp_pin_assign(int chipnum) {  //fix this to assign INPUT or OUTPUT (**** m
     int i;
     char activepin;
     String pin_io = mcpdoc[chipnum]["IO"].as<String>();
-  // { "Binary", "Door", "Window", "Switch", "Relay", "iBinary", "Relay3"};    
+  // "Binary", "Door", "Window", "Switch", "Relay", "iBinary", "Relay3", "INACTIVE"  
     for (i = 0; i<16; i++) {
       activepin = pin_io.charAt(i);  
       if (String(activepin) == "0") {            // BINARY IS FOR INPUT
         mcp[chipnum].pinMode(i, INPUT); // set pin as input
         mcp[chipnum].pullUp(i, HIGH);   // pull high as default
         mcpbuff[chipnum][i] = mcp[chipnum].digitalRead(i);  // put current value into buffer to initialize it
+     
       }
       if (String(activepin) == "1") {            // DOOR IS AN INPUT
         mcp[chipnum].pinMode(i, INPUT); // set pin as input
@@ -53,10 +54,13 @@ void mcp_pin_assign(int chipnum) {  //fix this to assign INPUT or OUTPUT (**** m
         mcp[chipnum].pinMode(i, OUTPUT);  // Might need to assign a default value for the output
         mcp[chipnum].digitalWrite (i, LOW);  // set all relays to low on restart
       }   
-      if (String(activepin) == "7") {            // INPUT SPEAKS TO INTERNAL RELAY
-        mcp[chipnum].pinMode(i, INPUT); // set pin as input
-        mcp[chipnum].pullUp(i, HIGH);   // pull high as default
-        mcpbuff[chipnum][i] = mcp[chipnum].digitalRead(i);  // put current value into buffer to initialize it
+      if (String(activepin) == "7") {            // INPUT THAT DOES NOT auto discover or publish
+          mcp[chipnum].pinMode(i, INPUT); // set pin as input
+          mcp[chipnum].pullUp(i, HIGH);   // pull high as default
+          mcpbuff[chipnum][i] = mcp[chipnum].digitalRead(i);  // put current value into buffer to initialize it
+    //    mcp[chipnum].pinMode(i, INPUT); // set pin as input
+    //    mcp[chipnum].pullUp(i, HIGH);   // pull high as default
+    //    mcpbuff[chipnum][i] = mcp[chipnum].digitalRead(i);  // put current value into buffer to initialize it
       }    
 
   }
@@ -81,8 +85,11 @@ void PINCompare(int mcpchip, int pinnum ) {
   String pin_io = mcpdoc[mcpchip]["IO"].as<String>();
 // COMPARE IF STATE CHANGED AND UPDATE BUFFER
   pinval = mcp[mcpchip].digitalRead(pinnum);  // read the pin 
+  
+  if (freshboot && pin_io.charAt(pinnum) != '7') {PUB_entity (mcpchip,pinnum,pinval);}; // PUBLISH THE CURRENT STATE ON FIRST BOOT
+  
   if (pinval != mcpbuff[mcpchip][pinnum]) {   // compare read state to buffer state and if changed do the following
-    if (pin_io.charAt(pinnum) == '7') {fan_toggle();}; // IF IT'S THE INTERNAL RELAY CONTROL TOGGLE
+   // if (pin_io.charAt(pinnum) == '7') {fan_toggle();}; // IF IT'S THE INTERNAL RELAY CONTROL TOGGLE
     
     mcpbuff[mcpchip][pinnum] = pinval;        // put new state in buffer
 //    DLINE1 = "LISTEN";
@@ -93,7 +100,8 @@ void PINCompare(int mcpchip, int pinnum ) {
        
  //   DLINE3 = "CHANG TO ";
  //   DLINE3 = DLINE3 + pinval;
-    PUB_entity (mcpchip,pinnum,pinval);
+    if (pin_io.charAt(pinnum) == '7') {PUB_ann_only (mcpchip,pinnum,pinval);} 
+      else {PUB_entity (mcpchip,pinnum,pinval);};
     
   }
 }
@@ -108,6 +116,7 @@ void MCPCompare (int mcpchip) {    // This routine checks all pins for input/out
     activepin = pin_io.charAt(i);
     if (activepin == '0') {            // DO THIS IF PIN IS Binary
       PINCompare (mcpchip,i);
+     
     }
     if (activepin == '1') {            // DO THIS IF PIN IS Door
        PINCompare (mcpchip,i);
@@ -122,12 +131,12 @@ void MCPCompare (int mcpchip) {    // This routine checks all pins for input/out
      // PINCompare (mcpchip,i);
     }
     if (activepin == '5') {            // DO THIS IF PIN IS iBinary
-     //  PINCompare (mcpchip,i);
+       PINCompare (mcpchip,i);
     }    
-    if (activepin == '6') {            // DO THIS IF PIN IS Lock
+    if (activepin == '6') {            // DO THIS IF PIN IS 3 second relay
      // PINCompare (mcpchip,i);
     }
-    if (activepin == '7') {            /// DO THIS IF INTERNAL RELAY
+    if (activepin == '7') {            /// DO THIS IF INACTIVE
        PINCompare (mcpchip,i);
     }  
     if (activepin == '8') {            // not used yet
@@ -143,7 +152,8 @@ void MCPReadAllActive () {
  
   for (int i = 0; i<8; i++) {
    if (mcpactivebuff[i] == 1) {            // DO THIS IF CHIP IS ACTIVE
-   MCPCompare (i);
+    
+     MCPCompare (i);
    }
   }
 }

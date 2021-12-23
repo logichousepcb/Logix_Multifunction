@@ -89,6 +89,7 @@ void scanI2CBus()
   if (nDevices == 0)
     Serial.println("No I2C devices found\n");
   else
+    i2cCOUNT = nDevices;
     Serial.print(nDevices);
     Serial.println(" i2c devices found\n");
   //  Serial.println(mcpactivebuff[0],mcpactivebuff[1],mcpactivebuff[2],mcpactivebuff[3],mcpactivebuff[4],mcpactivebuff[5],mcpactivebuff[6],mcpactivebuff[7]);

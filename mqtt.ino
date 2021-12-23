@@ -79,42 +79,54 @@ void PUB_entity (int mcpchip,int pinnum,int pinval)
   String entitystring;
   char addresstopic[100];
   char findmetopic[100];
-  
-
-// make a unique identifier out of clint+chip+port    
-
-
-  
   strcpy (addresstopic,mainTopic);      // add the mqtt main topic to the address
-  
   entitystring = mcpdoc[mcpchip][String(pinnum)].as<String>();
   entitystring.toCharArray(entityname, 12);
   strcat(addresstopic,"/"); 
   strcpy (findmetopic,addresstopic);
   strcat (findmetopic,"stat");
   strcat(addresstopic,entityname);
-  
   strcat (addresstopic,stateTopic);
-
   Serial.print ("publishing state to ----> ");
   Serial.println (addresstopic);
-  
-  
   pubdoc["entity"] = mcpdoc[mcpchip][String(pinnum)].as<String>();
-//  pubdoc["pin"] = pinnum;
   pubdoc["state"] = pinval;
-   
+  
   char pubbuffer[256];
   serializeJson(pubdoc, pubbuffer); // Serialize json for publihing
   client.publish(addresstopic, pubbuffer);// THIS IS WHERE TO PUBLISH THE SENSOR DATA
-
-
-
- 
   client.publish(findmetopic, pubbuffer); // this will puiblish to a text sensor
  
 }  
 
+void PUB_ann_only (int mcpchip,int pinnum,int pinval)
+
+{
+  StaticJsonDocument<256> pubdoc;
+  char addbuf[6];
+  char entityname[12];
+  String entitystring;
+  char addresstopic[100];
+  char findmetopic[100];
+  strcpy (addresstopic,mainTopic);      // add the mqtt main topic to the address
+  entitystring = mcpdoc[mcpchip][String(pinnum)].as<String>();
+  entitystring.toCharArray(entityname, 12);
+  strcat(addresstopic,"/"); 
+  strcpy (findmetopic,addresstopic);
+  strcat (findmetopic,"stat");
+  strcat(addresstopic,entityname);
+  strcat (addresstopic,stateTopic);
+  Serial.print ("publishing state to ----> ");
+  Serial.println (addresstopic);
+  pubdoc["entity"] = mcpdoc[mcpchip][String(pinnum)].as<String>();
+  pubdoc["state"] = pinval;
+  
+  char pubbuffer[256];
+  serializeJson(pubdoc, pubbuffer); // Serialize json for publihing
+//  client.publish(addresstopic, pubbuffer);// THIS IS WHERE TO PUBLISH THE SENSOR DATA
+  client.publish(findmetopic, pubbuffer); // this will puiblish to a text sensor
+ 
+}  
 
 void setupMQTT()
 {

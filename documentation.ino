@@ -41,6 +41,10 @@ https://davidjwatts.com/youtube/esp8266/esp-convertHTM.html#
 // 10/30/2021 - added SPI TFTto config menu cleanned up code (2.33)
 // 10/31/2021 - added TFT reotation to config
 // 11/4/2021  - fixed retain flag for config topics
+// 12/8/2021  - adding support for 1.44 SPI 128*128
+// 12/9/2021  - changed SPI TFT selection to radio button to make it easier to add more display support
+// 12/16/2021 - fixed code for ST7735 or ST7789 displays, added uptime counter, remove switch icon from auto disovery
+// 12/23/2021 - turned iBinary back on, added INACTIVE option to prevent MQTTAD for pin but it still publishes to th findme topic, removed intRelay class type, publishes current state on boot
 
 /* TO DO LIST
  

@@ -137,7 +137,7 @@ static const char PROGMEM ROOT_HTML[] = R"rawliteral(
 <a href="/config" style="display:block; margin: 0 auto;" class="link_button button2">Main Config</a>
 <a href="/hmcp"  style="display:block; margin: 0 auto;"class="link_button button2">I/O Pins Config</a>
 <a href="/reset" style="display:block; margin: 0 auto;" class="link_button button1">Reset I/O Assignments</a>
-<a href="/serverIndex" style="display:block; margin: 0 auto;" class="link_button button2">Firmware Update</a>
+<a href="/firmware" style="display:block; margin: 0 auto;" class="link_button button2">Firmware Update</a>
 <a href="/contact" style="display:block; margin: 0 auto;" class="link_button button2">Contact</a>
 </body>
 </html>)rawliteral";
@@ -190,7 +190,9 @@ String html_newline ="<p style=\"text-align:center\"><span style=\"font-family:T
   html_outline = INFO_HTML;
   html_outline += html_newline;
   // html_outline += "<p style="text-align:center"><span style="font-family:Arial,Helvetica,sans-serif"><em><span style="font-size:20px">";
-  if (tft_connected) {html_outline += "SPI TFT Selected (does not detect)";html_outline += "</span></span></p>";html_outline += html_newline;};
+  
+  if (tft_35_connected) {html_outline += "SPI ST7735 TFT Selected (does not detect)";html_outline += "</span></span></p>";html_outline += html_newline;};
+  if (tft_89_connected) {html_outline += "SPI ST7789 TFT Selected (does not detect)";html_outline += "</span></span></p>";html_outline += html_newline;};
   if (eth_connected) {html_outline += "Ethernet Connected";html_outline += "</span></span></p>";html_outline += html_newline;};
   if (wifi_connected) {html_outline += "Wifi Connected";html_outline += "</span></span></p>";html_outline += html_newline;};
   if (oled_connected) {html_outline += "Found oled at 0x03C";html_outline += "</span></span></p>";html_outline += html_newline;};
@@ -203,7 +205,21 @@ String html_newline ="<p style=\"text-align:center\"><span style=\"font-family:T
     html_outline += html_newline;};
   }
  // html_outline += "</span></em></span></p>";
+  
+  html_outline += "Firmware version: ";
+  html_outline += CURR_VERS;
+  html_outline += "</span></span></p>";
+  html_outline += html_newline;
+  html_outline += "ESP32 Chip Model: ";
+  html_outline += ESP.getChipModel();
+  html_outline += "</span></span></p>";
+  html_outline += html_newline;
+  html_outline += "Revision: ";
+  html_outline += ESP.getChipRevision();
+  html_outline += "</span></span></p>";
 
+
+  
 
   server.send(200, "text/html", html_outline);
 }

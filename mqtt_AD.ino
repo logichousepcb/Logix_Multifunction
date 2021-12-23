@@ -43,7 +43,7 @@ void AD_entities (int chipnum) {
  //   Serial.println (chipnum); 
     for (i = 0; i<16; i++) {
       activepin = pin_io.charAt(i);  
- 
+ //"Binary", "Door", "Window", "Switch", "Relay", "iBinary", "Relay3", "INACTIVE"
       if (String(activepin) == "0") {            // BINARY IS FOR INPUT
         mcpbuff[chipnum][i] = mcp[chipnum].digitalRead(i);  // put current value into buffer to initialize it
         AD_entity (chipnum,i,mcpbuff[chipnum][i],0);  
@@ -62,21 +62,17 @@ void AD_entities (int chipnum) {
       }    
       if (String(activepin) == "4") {            // RELAY IS OUTPUT
         AD_entity (chipnum,i,mcpbuff[chipnum][i],4); 
- 
-
-
- 
       }    
       if (String(activepin) == "5") {            // iBinary IS OUTPUT
+        mcpbuff[chipnum][i] = mcp[chipnum].digitalRead(i);
         AD_entity (chipnum,i,mcpbuff[chipnum][i],5); 
       }    
-      if (String(activepin) == "6") {            // LOCK IS OUTPUT
+      if (String(activepin) == "6") {            // Relay3 timed 3 sec relay
         AD_entity (chipnum,i,mcpbuff[chipnum][i],6); 
-        
       }    
-       if (String(activepin) == "7") {            // INVERTED BINARY IS FOR INPUT
+      if (String(activepin) == "7") {            // INVERTED BINARY IS FOR INPUT
         mcpbuff[chipnum][i] = mcp[chipnum].digitalRead(i);  // put current value into buffer to initialize it
-        AD_entity (chipnum,i,mcpbuff[chipnum][i],7);  
+        // AD_entity (chipnum,i,mcpbuff[chipnum][i],7); - DO NOT AUTO DISCOVER  
       
       }
   }
@@ -111,7 +107,7 @@ void AD_entity (int mcpchip,int pinnum,int pinval,int pinclass)
   strcat(uniquetopic,entityname);       // create the unique main topic
 
   
-// "Binary", "Door", "Window", "Switch", "Relay", "iBinary", "Lock", "iBinary"  
+// "Binary", "Door", "Window", "Switch", "Relay", "iBinary", "Relay3", "INACTIVE"
   switch (pinclass) {    // set the specific details for each entiry class
   case 0:
     pclass = "binary_sensor/";
@@ -141,7 +137,7 @@ void AD_entity (int mcpchip,int pinnum,int pinval,int pinclass)
     pubdoc["state_off"] = 0;
     strcpy(cmndtopic,uniquetopic);       // create command topic
     strcat(cmndtopic,cmndTopic);
-    pubdoc["icon"] = "mdi:light-switch";
+   //  pubdoc["icon"] = "mdi:light-switch";
     pubdoc["command_topic"] = cmndtopic;
     pubdoc["value_template"] = "{{value_json.state}}";
     client.subscribe(cmndtopic);   // subscribe to the cmnd topic mqtt-topic/cmnd

@@ -28,12 +28,12 @@ void control_check_activate (String entity_received,int lowhigh) {
     String pin_io = mcpdoc[i]["IO"].as<String>();
     if (mcpactivebuff[i] == 1) {            // DO THIS IF CHIP IS ACTIVE
  //      check if the name is a valid device against only valid input (switch,relay,light)
- 
+ //"Binary", "Door", "Window", "Switch", "Relay", "iBinary", "Relay3", "INACTIVE"
      for (pincount = 0; pincount<16; pincount++){ 
       activepin = pin_io.charAt(pincount);
       
       switch (activepin){     // set the specific details for each entiry class
-      case '3':
+      case '3':                           // SWITCH
         if (mcpdoc[i][PIN_BINARY[pincount-1]].as<String>()==entity_received) {
         PUB_entity (i,pincount,lowhigh);  // publish state change after command
         mcp_output_pin (i,pincount,lowhigh);
@@ -43,7 +43,7 @@ void control_check_activate (String entity_received,int lowhigh) {
           // Serial.println ("FALSE");
         };
       break;
-      case '4':
+      case '4':                           // RELAY
         if (mcpdoc[i][PIN_BINARY[pincount-1]].as<String>()==entity_received) {
         PUB_entity (i,pincount,lowhigh);  // publish state change after command
         mcp_output_pin (i,pincount,lowhigh);
@@ -53,17 +53,7 @@ void control_check_activate (String entity_received,int lowhigh) {
           // Serial.println ("FALSE");
         };
       break;
-   //   case '5':   // 5 IS NOW A BINARY INVERTED
-  //      if (mcpdoc[i][PIN_BINARY[pincount-1]].as<String>()==entity_received) {
-  //      PUB_entity (i,pincount,lowhigh);  // publish state change after command
-  //      mcp_output_pin (i,pincount,lowhigh);
-  //      DLINE2 = entity_received;
-  //      ICONLINE = '5';
-  //      } else {
-  //        // Serial.println ("FALSE");
-  //      };
-      break;
-      case '6':
+      case '6':                              // TIMED RELAY
         if (mcpdoc[i][PIN_BINARY[pincount-1]].as<String>()==entity_received) {
         PUB_entity (i,pincount,lowhigh);  // publish state change after command
         mcp_output_pin (i,pincount,lowhigh);

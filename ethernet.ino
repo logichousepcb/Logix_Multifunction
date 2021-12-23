@@ -58,16 +58,19 @@ boolean initEth() {
       }
       if (WiFi.status() == WL_CONNECTED) {
         Serial.print("IP-Adresse = ");
-      
-//        Serial.println(ipString);
+      //    Serial.println(ipString);
         Serial.println(WiFi.localIP());
+        Serial.print("ETH IPv4: ");
+        Serial.println(ETH.localIP());
         wifi_connected = true;
         connected = true;
       } 
     }
 //******  if not connected do this - will be an icon on display **********************//
 
-    if (!connected && !eth_connected) {
+    if (!wifi_connected && !eth_connected) {
+          Serial.println ("Access Point Active");
+          if (display_connected) {DLINE2 = "AP AVTIVE";display_status();};
           WiFi.mode(WIFI_AP);
           WiFi.softAP(conf.getApName(),"",1);  
     }

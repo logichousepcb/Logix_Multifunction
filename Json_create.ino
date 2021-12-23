@@ -4,7 +4,7 @@
 void mcprenewJson(int j) {
 // BUILD NEW CHAR ARRAY TO Json DOC
     mcpdoc[j]["chip"] = MCP_CHIPNAME[j];
-    mcpdoc[j]["IO"] = "0000000000000000";  // 1-7 for device class
+    mcpdoc[j]["IO"] = "7777777777777777";  // 1-7 for device class
     mcpdoc[j]["0"] =unique_id+MCP_CHIPNAME[j]+"-A0";            // store friendly name of IO for HA
     mcpdoc[j]["1"] =unique_id+MCP_CHIPNAME[j]+"-A1";
     mcpdoc[j]["2"] =unique_id+MCP_CHIPNAME[j]+"-A2";
