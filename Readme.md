@@ -11,7 +11,7 @@ This piece of firmware is just that.  It runs on an ESP32 with WIfi but was buil
 
 So I started with what you see bellow.  A mess of wires coming out of the wall in my front closet.  The wonderful MCP23017 is an i2c port expander that will give you 16 additional binary sensors or output control.  With this each chip can handle basically 16 zones in my house.  I have about 24.  <br>
 
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/BEFORE.PNG)<br>
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/BEFORE%26AFTER.PNG)<br>
 
 I started by wiring each binary sensor (reed switch) to a twisted pair on an RJ45 plug.  Since each plug had 4 pairs, it took 6 plugs to adapt the 24 wires to RJ45.  I then ran 6 cables to my rack mounted server station in the basement where I connected to the board I created.  I designed it to fit in my rack.
  
