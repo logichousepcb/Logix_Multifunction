@@ -18,7 +18,7 @@ I started by wiring each binary sensor (reed switch) to a twisted pair on an RJ4
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/LH2_0_Rack_Mount.PNG)<br>
 I also made a wall mount compact version which is available on Tindie.
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/LH25_Tindie.jpg)<br>
-https://www.tindie.com/products/logixpcb/16-port-ha-wifiethernet-sensor-adapter/
+For a prebuilt controller, visit my store at https://logix-home.com/ 
 <br>
 
 
