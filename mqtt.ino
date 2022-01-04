@@ -21,12 +21,13 @@ void callback(char* topic, byte* payload, unsigned int length) {
   } 
 
 
-  Serial.print ("MODIFIED COMMAND --->");Serial.println(topbuff);
+  Serial.print ("MODIFIED COMMAND --->");Serial.print(topbuff);Serial.print ("<===>");Serial.println (namebuffer);
 
 
   serializeJson(doc, namebuffer);
-  Serial.println (namebuffer);
-  Serial.print (topbuff);Serial.print (" = "); Serial.println (namebuffer); 
+  
+//  Serial.print (topbuff);Serial.print (" = "); Serial.println (namebuffer); 
+  if (atoi(namebuffer) == 99) {ESP.restart();};    //if a command of 99 is sent to any switch topic restart esp
   control_check_activate (topbuff,atoi(namebuffer));
 //  control_check_activate (doc["entity"].as<String>(),doc["state"].as<int>());
 // check if name is a valid input
@@ -48,9 +49,11 @@ boolean reconnect() {
     
     char subtopic[100];
     strcpy(subtopic,mainTopic);
+  //  strcat (subtopic,"/RESTART");
     strcat(subtopic,cmndTopic);
-    client.subscribe(subtopic);   // subscribe to the cmnd topic mqtt-topic/cmnd
-    
+    if (atoi(conf.getValue("mqtt-ad"))== 1) {AD_all_entities ();};
+   // client.subscribe(subtopic);   // subscribe to the cmnd topic mqtt-topic/cmnd
+  //  client.subscribe (subtopic);     // subscribe to the cmnd topic mqtt-topic/RESTART/cmnd
  //   client.subscribe(binarySensor.getConfigTopic());
  //       client.subscribe(reportTopic);
 
@@ -94,7 +97,7 @@ void PUB_entity (int mcpchip,int pinnum,int pinval)
   
   char pubbuffer[256];
   serializeJson(pubdoc, pubbuffer); // Serialize json for publihing
-  client.publish(addresstopic, pubbuffer);// THIS IS WHERE TO PUBLISH THE SENSOR DATA
+  client.publish(addresstopic, pubbuffer,true);// THIS IS WHERE TO PUBLISH THE SENSOR DATA
   client.publish(findmetopic, pubbuffer); // this will puiblish to a text sensor
  
 }  

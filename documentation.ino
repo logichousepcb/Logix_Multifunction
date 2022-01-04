@@ -45,6 +45,7 @@ https://davidjwatts.com/youtube/esp8266/esp-convertHTM.html#
 // 12/9/2021  - changed SPI TFT selection to radio button to make it easier to add more display support
 // 12/16/2021 - fixed code for ST7735 or ST7789 displays, added uptime counter, remove switch icon from auto disovery
 // 12/23/2021 - turned iBinary back on, added INACTIVE option to prevent MQTTAD for pin but it still publishes to th findme topic, removed intRelay class type, publishes current state on boot
+// 01/04/2022 - Made auto discovery run on MQTT reconnect as to resubscribe to the switch topics, add sending 99 to any subscribed cmnd topic (switch) would restart the esp
 
 /* TO DO LIST
  
