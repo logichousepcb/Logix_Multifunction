@@ -7,12 +7,15 @@ void AD_all_entities ()
  // String activelist;
  // char activechip;
   char findmetopic[100];
+  char buttontopic[100];
   char stopic[100];
-  char pubbuffer[256];
+  char ctopic[100];
+  char pubbuffer[300];
+  char uniquebuttid[20];
   
   Serial.println ("Auto discovery setup all MCPs"); 
-  StaticJsonDocument<256> adpubdoc;  // auto discovery for findme text sensor
- 
+  StaticJsonDocument<300> adpubdoc;  // auto discovery for findme text sensor
+// SET AUTO DISCOVER FINDME FUNCTION     
   strcpy (stopic,mainTopic);
   strcat (stopic,"/stat");
   adpubdoc["name"] = mainTopic;
@@ -23,6 +26,105 @@ void AD_all_entities ()
   strcat(findmetopic,mainTopic);
   strcat(findmetopic,"/config");
   client.publish(findmetopic, pubbuffer, true); //this will puiblish to a text sensor
+// SET AUTO DISCOVER INTERNAL PORTS - BUTTON1
+  adpubdoc.garbageCollect();
+  strcpy (stopic,mainTopic);
+  strcat (stopic,"/");
+  strcat (stopic,conf.getValue("button-1")); 
+  strcat (stopic,"/stat");
+  adpubdoc["pl_on"] = 0;
+  adpubdoc["pl_off"] = 1;
+  adpubdoc["value_template"] = "{{value_json.state}}";
+  adpubdoc["name"] = conf.getValue("button-1");
+  adpubdoc["state_topic"] = stopic;
+  strcpy(uniquebuttid,unique_id.c_str());
+  strcat(uniquebuttid,conf.getValue("button-1"));
+  adpubdoc["unique_id"] = uniquebuttid;
+  adpubdoc["avty_t"] = willTopic; 
+  serializeJson (adpubdoc, pubbuffer);
+  strcpy(buttontopic,"homeassistant/binary_sensor/");
+  strcat(buttontopic,mainTopic);
+  strcat(buttontopic,"/");
+  strcat(buttontopic,conf.getValue("button-1")); 
+  strcat(buttontopic,"/config");
+  client.publish(buttontopic, pubbuffer, true); 
+// SET AUTO DISCOVER INTERNAL PORTS - BUTTON2
+  adpubdoc.garbageCollect();
+  strcpy (stopic,mainTopic);
+  strcat (stopic,"/");
+  strcat (stopic,conf.getValue("button-2")); 
+  strcat (stopic,"/stat");
+  adpubdoc["pl_on"] = 0;
+  adpubdoc["pl_off"] = 1;
+  adpubdoc["value_template"] = "{{value_json.state}}";
+  adpubdoc["name"] = conf.getValue("button-2");
+  adpubdoc["state_topic"] = stopic;
+  strcpy(uniquebuttid,unique_id.c_str());
+  strcat(uniquebuttid,conf.getValue("button-2"));
+  adpubdoc["unique_id"] = uniquebuttid;
+  adpubdoc["avty_t"] = willTopic; 
+  serializeJson (adpubdoc, pubbuffer);
+  strcpy(buttontopic,"homeassistant/binary_sensor/");
+  strcat(buttontopic,mainTopic);
+  strcat(buttontopic,"/");
+  strcat(buttontopic,conf.getValue("button-2")); 
+  strcat(buttontopic,"/config");
+  client.publish(buttontopic, pubbuffer, true);   
+// SET AUTO DISCOVER INTERNAL PORTS - BUTTON3
+  adpubdoc.garbageCollect();
+  strcpy (stopic,mainTopic);
+  strcat (stopic,"/");
+  strcat (stopic,conf.getValue("button-3")); 
+  strcat (stopic,"/stat");
+  adpubdoc["pl_on"] = 0;
+  adpubdoc["pl_off"] = 1;
+  adpubdoc["value_template"] = "{{value_json.state}}";
+  adpubdoc["name"] = conf.getValue("button-3");
+  adpubdoc["state_topic"] = stopic;
+  strcpy(uniquebuttid,unique_id.c_str());
+  strcat(uniquebuttid,conf.getValue("button-3"));
+  adpubdoc["unique_id"] = uniquebuttid;
+  adpubdoc["avty_t"] = willTopic; 
+  serializeJson (adpubdoc, pubbuffer);
+  strcpy(buttontopic,"homeassistant/binary_sensor/");
+  strcat(buttontopic,mainTopic);
+  strcat(buttontopic,"/");
+  strcat(buttontopic,conf.getValue("button-3")); 
+  strcat(buttontopic,"/config");
+  client.publish(buttontopic, pubbuffer, true);   
+// SET AUTO DISCOVER INTERNAL PORTS - ON-BOARD RELAY
+  adpubdoc.garbageCollect();
+  strcpy (stopic,mainTopic);
+  strcat (stopic,"/");
+  strcat (stopic,conf.getValue("relay-1")); 
+  strcpy (ctopic,stopic);
+  strcat (stopic,"/stat");
+//  strcpy (ctopic,mainTopic);
+//  strcat (ctopic,"/");
+//  strcat (ctopic,conf.getValue("relay-1")); 
+  strcat (ctopic,"/cmnd");
+  adpubdoc["state_topic"] = stopic;
+  
+  adpubdoc["state_on"] = 1;
+  adpubdoc["state_off"] = 0; 
+  adpubdoc["pl_on"] = 1;
+  adpubdoc["pl_off"] = 0;
+  adpubdoc["value_template"] = "{{value_json.state}}";
+  adpubdoc["name"] = conf.getValue("relay-1");
+  adpubdoc["command_topic"] = ctopic;
+  strcpy(uniquebuttid,unique_id.c_str());
+  strcat(uniquebuttid,conf.getValue("relay-1"));
+  adpubdoc["unique_id"] = uniquebuttid;
+  adpubdoc["avty_t"] = willTopic; 
+  serializeJson (adpubdoc, pubbuffer);
+  strcpy(buttontopic,"homeassistant/switch/");
+  strcat(buttontopic,mainTopic);
+  strcat(buttontopic,"/");
+  strcat(buttontopic,conf.getValue("relay-1")); 
+  strcat(buttontopic,"/config");
+  client.publish(buttontopic, pubbuffer, true);   
+  client.subscribe(ctopic);   // subscribe to the cmnd topic mqtt-topic/cmnd
+ 
 //  Serial.print ("AD MASTER ");Serial.print (findmetopic);Serial.print ("<-->");Serial.println (pubbuffer);
   for (int i = 0; i<8; i++) {
  
@@ -41,6 +143,7 @@ void AD_entities (int chipnum) {
  //   Serial.print (pin_io);
  //   Serial.print ("AD pins for ");
  //   Serial.println (chipnum); 
+
     for (i = 0; i<16; i++) {
       activepin = pin_io.charAt(i);  
  //"Binary", "Door", "Window", "Switch", "Relay", "iBinary", "Relay3", "INACTIVE"

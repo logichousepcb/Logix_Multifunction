@@ -23,7 +23,14 @@ void control_check_activate (String entity_received,int lowhigh) {
   String pinlist;
   char activepin;
   
-  
+  if (entity_received == conf.getValue("relay-1")) {
+    //fan_toggle();
+    digitalWrite (RELAY_PIN, lowhigh);
+    PUB_entity (9,1,lowhigh);  
+    DLINE2 = entity_received;
+    ICONLINE = '3';
+  };
+    
   for (i = 0; i<8; i++) {
     String pin_io = mcpdoc[i]["IO"].as<String>();
     if (mcpactivebuff[i] == 1) {            // DO THIS IF CHIP IS ACTIVE

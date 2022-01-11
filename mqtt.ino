@@ -29,6 +29,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
 //  Serial.print (topbuff);Serial.print (" = "); Serial.println (namebuffer); 
   if (atoi(namebuffer) == 99) {ESP.restart();};    //if a command of 99 is sent to any switch topic restart esp
   control_check_activate (topbuff,atoi(namebuffer));
+  
+  
 //  control_check_activate (doc["entity"].as<String>(),doc["state"].as<int>());
 // check if name is a valid input
 
@@ -85,15 +87,20 @@ void PUB_entity (int mcpchip,int pinnum,int pinval)
   strcpy (addresstopic,mainTopic);      // add the mqtt main topic to the address
   entitystring = mcpdoc[mcpchip][String(pinnum)].as<String>();
   entitystring.toCharArray(entityname, 12);
+
+  pubdoc["entity"] = mcpdoc[mcpchip][String(pinnum)].as<String>();
+  if (mcpchip==9) {pubdoc["entity"] = conf.getValue("relay-1");}; 
+  pubdoc["state"] = pinval;
+  
   strcat(addresstopic,"/"); 
   strcpy (findmetopic,addresstopic);
   strcat (findmetopic,"stat");
-  strcat(addresstopic,entityname);
+ // strcat(addresstopic,entityname);
+  strcat(addresstopic,pubdoc["entity"]);
   strcat (addresstopic,stateTopic);
   Serial.print ("publishing state to ----> ");
   Serial.println (addresstopic);
-  pubdoc["entity"] = mcpdoc[mcpchip][String(pinnum)].as<String>();
-  pubdoc["state"] = pinval;
+  
   
   char pubbuffer[256];
   serializeJson(pubdoc, pubbuffer); // Serialize json for publihing

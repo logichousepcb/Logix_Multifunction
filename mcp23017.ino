@@ -7,6 +7,7 @@ void setup_mcp() { // FIX THIS SO IT ONLY INITIALIZES ACTIVE DEVICES
     Serial.println (" is ACTIVATED");
     mcp[i].begin(i);
     mcp_pin_assign(i);
+    PUB_entity (9,0,0);
     }
    }
 }
