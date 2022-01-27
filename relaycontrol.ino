@@ -36,8 +36,8 @@ void control_check_activate (String entity_received,int lowhigh) {
     if (mcpactivebuff[i] == 1) {            // DO THIS IF CHIP IS ACTIVE
  //      check if the name is a valid device against only valid input (switch,relay,light)
  //"Binary", "Door", "Window", "Switch", "Relay", "iBinary", "Relay3", "INACTIVE"
-     for (pincount = 0; pincount<16; pincount++){ 
-      activepin = pin_io.charAt(pincount);
+     for (pincount = 0; pincount<17; pincount++){ 
+      activepin = pin_io.charAt(pincount-1);
       
       switch (activepin){     // set the specific details for each entiry class
       case '3':                           // SWITCH

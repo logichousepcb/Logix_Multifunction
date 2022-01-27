@@ -1,6 +1,6 @@
 
 
-#define CURR_VERS              "2.4.2b"
+#define CURR_VERS              "2.4.2f"
 
 #include <WebServer.h>
 //#include <AsyncTCP.h>
