@@ -1,5 +1,5 @@
 
-
+/*
 void callback(char* topic, byte* payload, unsigned int length) {
   StaticJsonDocument<256> doc;
   String name = "";
@@ -12,7 +12,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
   deserializeJson(doc, payload, length);
   char namebuffer[256];
   Serial.print ("RECEIVED COMMAND FROM --->");Serial.println(topic);
-
+//   Serial.print ("PAYLOAD OF --->");Serial.println(payload);
+  
   strcpy(topbuff,wrd);
   byte len= strlen(topbuff);
   topbuff [len - 5] = '\0';
@@ -21,8 +22,10 @@ void callback(char* topic, byte* payload, unsigned int length) {
   } 
 
 
-  Serial.print ("MODIFIED COMMAND --->");Serial.print(topbuff);Serial.print ("<===>");Serial.println (namebuffer);
-
+  Serial.print ("MODIFIED COMMAND --->");Serial.print(topbuff);Serial.print ("<===>");
+  
+  // Serial.println (namebuffer);
+  Serial.println (atoi(namebuffer));
 
   serializeJson(doc, namebuffer);
   
@@ -38,6 +41,39 @@ void callback(char* topic, byte* payload, unsigned int length) {
 // act on valid input
   
 }
+*/
+// Callback function
+void callback(char* topic, byte* payload, unsigned int length) {
+  // In order to republish this payload, a copy must be made
+  // as the orignal payload buffer will be overwritten whilst
+  // constructing the PUBLISH packet.
+  char topbuff[20];
+  char* wrd = strstr(topic,"/");
+  StaticJsonDocument<256> doc;
+  // Allocate the correct amount of memory for the payload copy
+  Serial.println ("--------------------START MSG PROCESSING-----------------");
+  deserializeJson(doc, payload, length);
+  char namebuffer[256];
+  Serial.print ("RECEIVED COMMAND FROM --->");Serial.println(topic);
+ // byte* p = (byte*)malloc(length);
+  // Copy the payload to the new buffer
+ // memcpy(p,payload,length);
+ 
+  strcpy(topbuff,wrd);
+  byte len= strlen(topbuff);
+  topbuff [len - 5] = '\0';
+  for( int i = 1 ; i < len ; ++i ){
+    topbuff[ i - 1 ] = topbuff[ i ];
+  } 
+
+  serializeJson(doc, namebuffer);
+  if (atoi(namebuffer) == 99) {ESP.restart();};    //if a command of 99 is sent to any switch topic restart esp
+  Serial.print ("RECEIVED CMD FOR ENTITY --->");Serial.print(topbuff);Serial.print("<--->");Serial.print(atoi(namebuffer));Serial.println("<---");
+  
+  control_check_activate (topbuff,atoi(namebuffer));
+  Serial.println ("----------------------END MSG PROCESSING-----------------");
+}
+
 
 boolean reconnect() {
    // char subtopic[100];
@@ -53,7 +89,8 @@ boolean reconnect() {
     strcpy(subtopic,mainTopic);
   //  strcat (subtopic,"/RESTART");
     strcat(subtopic,cmndTopic);
-    if (atoi(conf.getValue("mqtt-ad"))== 1) {AD_all_entities ();};
+    AD_all_entities ();
+ //   if (atoi(conf.getValue("mqtt-ad"))== 1) {AD_all_entities ();};
    // client.subscribe(subtopic);   // subscribe to the cmnd topic mqtt-topic/cmnd
   //  client.subscribe (subtopic);     // subscribe to the cmnd topic mqtt-topic/RESTART/cmnd
  //   client.subscribe(binarySensor.getConfigTopic());
@@ -85,18 +122,26 @@ void PUB_entity (int mcpchip,int pinnum,int pinval)
   char addresstopic[100];
   char findmetopic[100];
   strcpy (addresstopic,mainTopic);      // add the mqtt main topic to the address
-  entitystring = mcpdoc[mcpchip][String(pinnum)].as<String>();
+ 
+  if (mcpchip==9) {entitystring = conf.getValue("relay-1");}
+    else {entitystring = mcpdoc[mcpchip][String(pinnum)].as<String>();};
   entitystring.toCharArray(entityname, 12);
 
-  pubdoc["entity"] = mcpdoc[mcpchip][String(pinnum)].as<String>();
-  if (mcpchip==9) {pubdoc["entity"] = conf.getValue("relay-1");}; 
+//  pubdoc["entity"] = mcpdoc[mcpchip][String(pinnum)].as<String>();
+/*
+  if (mcpchip==9) {
+    // pubdoc["entity"] = conf.getValue("relay-1");}
+    pubdoc["entity"] = "OBRelay";}
+    else {pubdoc["entity"] = mcpdoc[mcpchip][String(pinnum)].as<String>();}; 
+*/
+
   pubdoc["state"] = pinval;
   
   strcat(addresstopic,"/"); 
   strcpy (findmetopic,addresstopic);
   strcat (findmetopic,"stat");
- // strcat(addresstopic,entityname);
-  strcat(addresstopic,pubdoc["entity"]);
+  strcat(addresstopic,entityname);
+ // strcat(addresstopic,pubdoc["entity"]);
   strcat (addresstopic,stateTopic);
   Serial.print ("publishing state to ----> ");
   Serial.println (addresstopic);

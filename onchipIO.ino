@@ -4,6 +4,8 @@ void setup_onboard_io () {
  pinMode(BTN1_PIN, INPUT);
  pinMode(BTN2_PIN, INPUT);
  pinMode(BTN3_PIN, INPUT);
+ pinMode (LED_PIN, OUTPUT); // Backlight LED 
+ digitalWrite (LED_PIN, HIGH);  // TURN ON BACKLIGHT AT START
 }
 
 void onboard_io_compare () {
@@ -85,13 +87,15 @@ void fan_toggle () {
 
 void obrelay_control (int tstat) {
   digitalWrite (RELAY_PIN, tstat);
+  obiobuff[0] = tstat;
  
 }
 // SETUP WS2812 LED
+/*
 void setup_pixel () {
   pixels.begin();
   pixels.clear();
   pixels.setBrightness(10);
   pixels.setPixelColor(0, pixels.Color(200, 100, 255));
   pixels.show();
-}
+} */

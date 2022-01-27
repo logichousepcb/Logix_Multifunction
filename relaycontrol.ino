@@ -5,7 +5,7 @@ void mcp_output_pin (int chipnum,int pinnum,int lowhigh) {
         Serial.print ("-");
         Serial.print ("Relay - ");
         mcp[chipnum].digitalWrite (pinnum, lowhigh);
-        read_ina260();
+     //   read_ina260();
       
     //    if (lowhigh == 1) {mcp[chipnum].digitalWrite (pinnum, HIGH);Serial.println (" - ON");};
     //    if (lowhigh == 0) {mcp[chipnum].digitalWrite (pinnum, LOW);Serial.println (" - OFF");};
@@ -31,7 +31,7 @@ void control_check_activate (String entity_received,int lowhigh) {
     ICONLINE = '3';
   };
     
-  for (i = 0; i<8; i++) {
+ for (i = 0; i<8; i++) {
     String pin_io = mcpdoc[i]["IO"].as<String>();
     if (mcpactivebuff[i] == 1) {            // DO THIS IF CHIP IS ACTIVE
  //      check if the name is a valid device against only valid input (switch,relay,light)
@@ -42,8 +42,8 @@ void control_check_activate (String entity_received,int lowhigh) {
       switch (activepin){     // set the specific details for each entiry class
       case '3':                           // SWITCH
         if (mcpdoc[i][PIN_BINARY[pincount-1]].as<String>()==entity_received) {
-        PUB_entity (i,pincount,lowhigh);  // publish state change after command
-        mcp_output_pin (i,pincount,lowhigh);
+        PUB_entity (i,pincount-1,lowhigh);  // publish state change after command
+        mcp_output_pin (i,pincount-1,lowhigh);
         DLINE2 = entity_received;
         ICONLINE = '3';
         } else {
@@ -52,8 +52,8 @@ void control_check_activate (String entity_received,int lowhigh) {
       break;
       case '4':                           // RELAY
         if (mcpdoc[i][PIN_BINARY[pincount-1]].as<String>()==entity_received) {
-        PUB_entity (i,pincount,lowhigh);  // publish state change after command
-        mcp_output_pin (i,pincount,lowhigh);
+        PUB_entity (i,pincount-1,lowhigh);  // publish state change after command
+        mcp_output_pin (i,pincount-1,lowhigh);
         DLINE2 = entity_received;
         ICONLINE = '4';
         } else {
@@ -62,8 +62,8 @@ void control_check_activate (String entity_received,int lowhigh) {
       break;
       case '6':                              // TIMED RELAY
         if (mcpdoc[i][PIN_BINARY[pincount-1]].as<String>()==entity_received) {
-        PUB_entity (i,pincount,lowhigh);  // publish state change after command
-        mcp_output_pin (i,pincount,lowhigh);
+        PUB_entity (i,pincount-1,lowhigh);  // publish state change after command
+        mcp_output_pin (i,pincount-1,lowhigh);
         delay (3000);        // THIS IS WHERE THE GARAGE DELAY WILL GO
         mcp_output_pin (i,pincount,0);
         PUB_entity (i,pincount,0); 

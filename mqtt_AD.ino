@@ -124,7 +124,8 @@ void AD_all_entities ()
   strcat(buttontopic,"/config");
   client.publish(buttontopic, pubbuffer, true);   
   client.subscribe(ctopic);   // subscribe to the cmnd topic mqtt-topic/cmnd
- 
+// CLEAN UP
+  adpubdoc.garbageCollect();   
 //  Serial.print ("AD MASTER ");Serial.print (findmetopic);Serial.print ("<-->");Serial.println (pubbuffer);
   for (int i = 0; i<8; i++) {
  
@@ -274,7 +275,7 @@ void AD_entity (int mcpchip,int pinnum,int pinval,int pinclass)
     pubdoc["state_off"] = 0;
     strcpy(cmndtopic,uniquetopic);       // create command topic
     strcat(cmndtopic,cmndTopic);
-    pubdoc["icon"] = "mdi:timer-3";
+   // pubdoc["icon"] = "mdi:timer-3";
     pubdoc["command_topic"] = cmndtopic;
     pubdoc["value_template"] = "{{value_json.state}}";
     client.subscribe(cmndtopic);   // subscribe to the cmnd topic mqtt-topic/cmnd
