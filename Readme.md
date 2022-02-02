@@ -37,7 +37,7 @@ Wifi is supported if you don't want to run ethernet to your closet.  I also have
 
 
 You will be greated with this main page when you navigate to the devices ip.  (be patient the first few times) <br>
-
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/mainpage.PNG)<br>
 
 
 Here is the device configuration page where.  
