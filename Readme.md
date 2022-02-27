@@ -94,6 +94,7 @@ MQTT->AD = Device is sending AUto Discovery MQTT messages to Home Assistant <br>
 AP ACTIVE = The access point is active, you need to connect to the AP using your phone and navigate to 192.168.4.1 to input you WIFI credentials (or connect via Ethernet) <br>
 READY = Waiting for I/O input (it will display the last I/O used for a period and refresh to ready after some time) <br>
 
-<a href="https://www.buymeacoffee.com/logixpcbM" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+<a href="https://www.buymeacoffee.com/logixpcbM" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a> <br>
+
 ** There are other actions displayed on the screen such as file writting or deleting.  Config information is stored in the SPIFF file system. <br>
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/TFTOLED.PNG)<br>
