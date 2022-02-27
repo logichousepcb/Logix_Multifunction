@@ -1,6 +1,6 @@
 #Multi Function Home Control Board
 
-<a href="https://www.buymeacoffee.com/logixpcbM" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
 
 The main purpose of the software is to set up, modify and deploy a mcp23017 based multifunction board.  My board started out as a 64 port adapter to adapt the security system wiring built into my house to home assistant.  This wiring mostly consisted of reed switches but I found alarm wiring going to all corners of my house including my attic and basement.  I was eager to find uses for it all.  ESP Home is a great piece of software to connect to home assistant but I found it did not suite my needs and did not seem to handle that many i/o ports.  I set out to design my own.  I started with a simple piece of firmware I wrote that used a config file and adapted the sensors to Home Assitant quite well and it worked for over a year without issue. <br>
 
@@ -92,7 +92,8 @@ FIRMWARE = Firmware is updating <br>
 CONN->MQTT = Device is trying to connect to MQTT, if this doesn't go away check you MQTT settings in the web ui <br>
 MQTT->AD = Device is sending AUto Discovery MQTT messages to Home Assistant <br>
 AP ACTIVE = The access point is active, you need to connect to the AP using your phone and navigate to 192.168.4.1 to input you WIFI credentials (or connect via Ethernet) <br>
-READY = Waiting for I/O input (it will display the last I/O used for a period and refresh to ready after some time)
+READY = Waiting for I/O input (it will display the last I/O used for a period and refresh to ready after some time) <br>
 
+<a href="https://www.buymeacoffee.com/logixpcbM" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 ** There are other actions displayed on the screen such as file writting or deleting.  Config information is stored in the SPIFF file system. <br>
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/TFTOLED.PNG)<br>
