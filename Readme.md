@@ -39,7 +39,7 @@ Wifi is supported if you don't want to run ethernet to your closet.  I also have
 
 
 You will be greated with this main page when you navigate to the devices ip.  (be patient the first few times) <br>
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/mainpage.PNG)<br>
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/images/MainPage.PNG)<br>
 
 Thank you @heffneil for the work on cleaning up the webui pages!
 
@@ -50,7 +50,7 @@ Here is the device configuration page where.
 **If you want a richer display, I built in support for a 240x240 SPI TFT display including rottion in case you mount it sideways or upside down.
 *** YOU DO NEED TO SAVE AND RESTART FOR ALL CHANGES TO TAKE EFFECT
 
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/configpage.PNG)<br>
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/images/ConfigPage.PNG)<br>
 
 Connected Devices Menu <br>
 
@@ -77,8 +77,9 @@ BUT WAIT!! YOU DON'T KNOW WHICH PORT IS CONNECTED TO WHICH REED SWITCH IN THAT W
 
 You can open and close the doors, windows or test wires and watch the connected display to see what it is temporarily called or you can turn on auto dicovery.  Add the sesnor that looks like and eye named that same as your main topin (device) and it will display the last item pushed.  Walk around your house with your phone and HA mobile and watch the displayed name on your dashboard.  Then head to your browser, raname, save and reload auto discovery. <br>
 
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/images/DefaultPortAssignments.PNG)<br>
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/pinassigncompare.PNG)<br>
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/pinassignpage.PNG)<br>
+![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/images/AssignPage.PNG)<br>
 
 If you have an SPI TFT or an SSD1306 OLED connected you get the benefit of an informative display.  
 On the screen: <br>
