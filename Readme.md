@@ -18,9 +18,8 @@ So I started with what you see bellow.  A mess of wires coming out of the wall i
 I started by wiring each binary sensor (reed switch) to a twisted pair on an RJ45 plug.  Since each plug had 4 pairs, it took 6 plugs to adapt the 24 wires to RJ45.  I then ran 6 cables to my rack mounted server station in the basement where I connected to the board I created.  I designed it to fit in my rack.
  
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/LH2_0_Rack_Mount.PNG)<br>
-I also made a wall mount compact version which is available on Tindie.
-https://logixdiy.com/<br>
-For a prebuilt controller, visit my store at https://logix-home.com/ 
+
+For a prebuilt controller, visit my store at https://logixdiy.com/ 
 <br>
 
 
