@@ -1,5 +1,5 @@
-#Multi Function Home Control Board
-
+#Multi Function Home Control Board<br>
+https://logixdiy.com/<br>
 
 
 The main purpose of the software is to set up, modify and deploy a mcp23017 based multifunction board.  My board started out as a 64 port adapter to adapt the security system wiring built into my house to home assistant.  This wiring mostly consisted of reed switches but I found alarm wiring going to all corners of my house including my attic and basement.  I was eager to find uses for it all.  ESP Home is a great piece of software to connect to home assistant but I found it did not suite my needs and did not seem to handle that many i/o ports.  I set out to design my own.  I started with a simple piece of firmware I wrote that used a config file and adapted the sensors to Home Assitant quite well and it worked for over a year without issue. <br>
@@ -19,7 +19,7 @@ I started by wiring each binary sensor (reed switch) to a twisted pair on an RJ4
  
 ![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/LH2_0_Rack_Mount.PNG)<br>
 I also made a wall mount compact version which is available on Tindie.
-![GitHub Logo](https://github.com/logichousepcb/Logix_Multifunction/blob/main/LH25_Tindie.jpg)<br>
+https://logixdiy.com/<br>
 For a prebuilt controller, visit my store at https://logix-home.com/ 
 <br>
 
